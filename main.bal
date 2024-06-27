@@ -9,11 +9,11 @@ service /subscriptions on ep0 {
         io:println("Received");
         map<string> formParams = check request.getFormParams();
         io:println(formParams);
-        string? abcVlaue = formParams["abc"];
-        if abcVlaue is string {
-            io:println("abc Value ", abcVlaue);
+        string? marketplaceToken = formParams["x-amzn-marketplace-token"];
+        if marketplaceToken is string {
+            io:println("Marketplace token", marketplaceToken);
         } else {
-            io:println("No abc value found");
+            io:println("Marketplace token found");
         }
         return "suceess";
     }
