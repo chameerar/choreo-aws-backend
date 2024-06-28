@@ -5,7 +5,7 @@ listener http:Listener ep0 = new (9090);
 
 service /subscriptions on ep0 {
 
-    resource function post register\-aws\-subscription(http:Request request) returns http:PermanentRedirect|http:ClientError? {
+    resource function post register\-aws\-subscription(http:Request request) returns json|http:ClientError? {
         io:println("Received");
         map<string> formParams = check request.getFormParams();
         io:println(formParams);
@@ -15,11 +15,7 @@ service /subscriptions on ep0 {
         } else {
             io:println("Marketplace token found");
         }
-        return {
-            headers: {
-                "Location": "https://google.com"
-            }
-        };
+        return {"aws-marketplace-token": marketplaceToken};
     }
 
     resource function post create\-component(http:Request request) returns json|http:ClientError? {
